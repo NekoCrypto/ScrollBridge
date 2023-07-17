@@ -23,6 +23,7 @@ def scroll_bridge():
     bridge_contrat_scroll = web3.eth.contract(scroll_bridge_contract, abi=scroll_bridge_abi)
 
     GETH = int(web3.to_wei(0.01, 'ether'))
+    gasPrice = int(web3.eth.gas_price * 1.1)
 
     bridge_transaction = bridge_contrat_scroll.functions.depositETH(
             10000000000000000,
@@ -30,7 +31,7 @@ def scroll_bridge():
     ).build_transaction({
         'nonce': web3.eth.get_transaction_count(address),
         'gas': web3.eth.gas_price,
-        'gasPrice': web3.eth.gas_price * 1.1,
+        'gasPrice': gasPrice,
         'from': address,
         'value': web3.to_wei(0.01, 'ether'),
     })
